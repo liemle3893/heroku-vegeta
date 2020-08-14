@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require "json"
+require "securerandom"
+
+config = JSON.load(File.read("./config.json"))
+
+config["nodes"].times do
+  name = "vegeta-#{SecureRandom.hex(10)}"
+  puts `heroku create --no-remote #{name}`
+  `git remote add #{name} git@heroku.com:#{name}.git`
+  `git push #{name} master`
+end

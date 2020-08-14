@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for app in $(git remote | grep vegeta); do
+  heroku apps:destroy $app --confirm=$app
+  git remote rm $app &> /dev/null
+done
